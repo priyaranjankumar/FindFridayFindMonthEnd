@@ -3,7 +3,7 @@
 This script updates the header in CSV files and copies them to a different folder based on the current date and day of the week.
 
 .DESCRIPTION
-The script takes two folder paths as input arguments. It checks if the first folder path exists and if a date argument is provided in the correct format. If no date argument is provided, it uses the current system date. 
+The script takes two folder paths as input arguments. It checks if the first folder path exists and if a date argument is provided in the correct format. If no date argument is provided, it uses the current system date.
 
 If the current date is the last day of the month, the script updates the header in CSV files in the first folder path and copies them to the second folder path with an updated name. If the current day is Friday, the script updates the header in CSV files in the first folder path and copies them to the second folder path with an updated name.
 
@@ -46,7 +46,7 @@ if (-not (Test-Path $path2)) {
     Write-Error "Path '$path2' does not exist."
     return
 }
-# If a date argument was provided, Verify it is in the correct format 
+# If a date argument was provided, Verify it is in the correct format
 if ($args[2]) {
     $dateString = $args[2].ToString()
     $format = "yyyy-MM-dd"
@@ -72,7 +72,7 @@ $today = $date
 $lastDayOfMonth = ((Get-Date -Day 1 -Month $today.Month -Year $today.Year).AddMonths(1).AddDays(-1)).Day
 
 if ($today.Day -eq $lastDayOfMonth) {
-    Write-Host "Today is the last day of the month. Updating header in Files"  
+    Write-Host "Today is the last day of the month. Updating header in Files"
     $files = Get-ChildItem -Path $path1 -Filter "*.csv"
     # Iterate over the files in the folder
     foreach ($file in $files) {
@@ -87,7 +87,7 @@ if ($today.Day -eq $lastDayOfMonth) {
     $t1 = $today.ToString("yyyyMMdd")
     $ts = "_" + $t1 + "_" + $t1 + "_"
 
-    $files = Get-ChildItem -Path $path1  
+    $files = Get-ChildItem -Path $path1
     if ($file.Name.Length -gt 29) {
         foreach ($file in $files) {
             $ilength = $file.FullName.Length - 29
@@ -108,7 +108,7 @@ else {
 $day = $today.DayOfWeek
 
 if ($day -eq "Friday") {
-    Write-Host "Today is Friday. Updating header Files"  
+    Write-Host "Today is Friday. Updating header in Files"
     $files = Get-ChildItem -Path $path1 -Filter "*.csv"
     # Iterate over the files in the folder
     $sw = new-object System.Diagnostics.Stopwatch
@@ -123,12 +123,12 @@ if ($day -eq "Friday") {
     }
 
     $sw.Stop()
-    Write-Host "Headers updated in " $sw.Elapsed.TotalSeconds "seconds." 
+    Write-Host "Headers updated in " $sw.Elapsed.TotalSeconds "seconds."
     Write-Host "Today is Friday. Copying Weekly Files with updated name"
     $t1 = $today.ToString("yyyyMMdd")
     $ts = "_" + $t1 + "_" + $t1 + "_"
 
-    $files = Get-ChildItem -Path $path1  
+    $files = Get-ChildItem -Path $path1
     foreach ($file in $files) {
         if ($file.Name.Length -gt 29) {
             $ilength = $file.Name.Length - 29
@@ -140,7 +140,7 @@ if ($day -eq "Friday") {
                 Copy-Item $FILE.FullName $destfile
             }
         }
-    } 
+    }
 }
 else {
     Write-Output "Today is not Friday. No Weekly Files Copied"
