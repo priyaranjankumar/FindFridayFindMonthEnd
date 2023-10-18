@@ -111,14 +111,19 @@ if ($day -eq "Friday") {
     Write-Host "Today is Friday. Updating header Files"  
     $files = Get-ChildItem -Path $path1 -Filter "*.csv"
     # Iterate over the files in the folder
+    $sw = new-object System.Diagnostics.Stopwatch
+    $sw.Start()
     foreach ($file in $files) {
         #Updating header in file
-        $sw = new-object System.Diagnostics.Stopwatch
-        $sw.Start()
+        # $sw = new-object System.Diagnostics.Stopwatch
+        # $sw.Start()
         & "./replaceheader.exe" $file.FullName $dateString
-        $sw.Stop()
-        Write-Host "Header updated in " $sw.Elapsed.TotalSeconds "seconds"  $file.FullName
+        # $sw.Stop()
+        # Write-Host "Header updated in " $sw.Elapsed.TotalSeconds "seconds"  $file.FullName
     }
+
+    $sw.Stop()
+    Write-Host "Headers updated in " $sw.Elapsed.TotalSeconds "seconds." 
     Write-Host "Today is Friday. Copying Weekly Files with updated name"
     $t1 = $today.ToString("yyyyMMdd")
     $ts = "_" + $t1 + "_" + $t1 + "_"

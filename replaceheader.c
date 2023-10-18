@@ -88,22 +88,22 @@ int main(int argc, char *argv[])
     char *date = argv[2];
     char new[25] = "";
     char *pos = strstr(header, old);
-    printf("pos: %s\n", pos);
-    printf("old: %s\n", old);
+    // printf("pos: %s\n", pos);
+    // printf("old: %s\n", old);
     strcpy(new, old);
-    printf("new: %s\n", new);
+    // printf("new: %s\n", new);
     strcat(new, date);
-    printf("new: %s\n", new);
+    // printf("new: %s\n", new);
     strcat(new, "|");
-    printf("new: %s\n", new);
+    // printf("new: %s\n", new);
     strcat(new, date);
-    printf("new: %s\n", new);
+    printf("new header: %s\n", new);
     if (pos != NULL)
     {
         strncpy(pos, new, strlen(new));
     }
     else {
-        printf("header not found, Skipping: %s\n", argv[1]")
+        printf("header not found: skipping file:%s\n", argv[1]);
     }
 
     // Write the modified header back to the file
