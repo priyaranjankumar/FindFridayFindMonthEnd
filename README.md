@@ -20,6 +20,7 @@ The script uses a separate executable file `replaceheader.exe` to update the hea
 ### Example
 
 This command updates the header in CSV files in `/home/user/folder1/` and copies them to `/home/user/folder2/` with an updated name. The date argument is provided as `2022-12-31`. 💻
+ `./findFridayandMonthEnd.ps1 C:\Users\priyarku\Downloads\FindFridayFindMonthEnd-main\data\ C:\Users\priyarku\Downloads\FindFridayFindMonthEnd-main\out\ 2023-10-20`
 
 ## License
 
