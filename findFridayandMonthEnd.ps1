@@ -90,7 +90,7 @@ if ($today.Day -eq $lastDayOfMonth) {
     $files = Get-ChildItem -Path $path1
     if ($file.Name.Length -gt 29) {
         foreach ($file in $files) {
-            $ilength = $file.FullName.Length - 29
+            $ilength = $file.Name.Length - 29
             $elength = 10
             $sfile = $file.Name.Substring(0, $ilength)
             $efile = $file.Name.Substring($file.Name.Length - $elength, $elength)
