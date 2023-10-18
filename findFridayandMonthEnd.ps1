@@ -96,6 +96,7 @@ if ($today.Day -eq $lastDayOfMonth) {
             $efile = $file.Name.Substring($file.Name.Length - $elength, $elength)
             $destfile = $path2 + $sfile + $ts + $efile
             if ($destfile.Contains("CAPSIL") -And ($destfile.Contains("_ML_"))) {
+            write-host "Copied :"$destfile
                 Copy-Item $FILE.FullName $destfile
             }
         }
@@ -137,6 +138,7 @@ if ($day -eq "Friday") {
             $efile = $file.Name.Substring($file.Name.Length - $elength, $elength)
             $destfile = $path2 + $sfile + $ts + $efile
             if ($destfile.Contains("CAPSIL") -And ($destfile.Contains("_WL_"))) {
+            write-host "Copied :"$destfile
                 Copy-Item $FILE.FullName $destfile
             }
         }
