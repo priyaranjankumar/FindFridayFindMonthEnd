@@ -17,7 +17,7 @@ The path of the folder where the updated CSV files will be copied.
 The date in the format 'yyyy-MM-dd'. If not provided, the current system date will be used.
 
 .EXAMPLE
-./findFridayandMonthEnd.ps1 /home/user/folder1 /home/user/folder2 2022-12-31
+./findFridayandMonthEnd.ps1 /home/user/folder1/ /home/user/folder2/ 2022-12-31
 
 This command updates the header in CSV files in /home/user/folder1 and copies them to /home/user/folder2 with an updated name. The date argument is provided as '2022-12-31'.
 
@@ -73,7 +73,7 @@ $lastDayOfMonth = ((Get-Date -Day 1 -Month $today.Month -Year $today.Year).AddMo
 
 if ($today.Day -eq $lastDayOfMonth) {
     Write-Host "Today is the last day of the month. Updating header in Files"  
-    $files = Get-ChildItem -Path $folder -Filter "*.csv"
+    $files = Get-ChildItem -Path $path1 -Filter "*.csv"
     # Iterate over the files in the folder
     foreach ($file in $files) {
         #Updating header in file
@@ -88,14 +88,16 @@ if ($today.Day -eq $lastDayOfMonth) {
     $ts = "_" + $t1 + "_" + $t1 + "_"
 
     $files = Get-ChildItem -Path $path1  
-    foreach ($file in $files) {
-        $ilength = $file.FullName.Length - 29
-        $elength = 10
-        $sfile = $file.Name.Substring(0, $ilength)
-        $efile = $file.Name.Substring($file.Name.Length - $elength, $elength)
-        $destfile = $path2 + $sfile + $ts + $efile
-        if ($destfile.Contains("CAPSIL") -And ($destfile.Contains("_ML_"))) {
-            Copy-Item $FILE.FullName $destfile
+    if ($file.Name.Length -gt 29) {
+        foreach ($file in $files) {
+            $ilength = $file.FullName.Length - 29
+            $elength = 10
+            $sfile = $file.Name.Substring(0, $ilength)
+            $efile = $file.Name.Substring($file.Name.Length - $elength, $elength)
+            $destfile = $path2 + $sfile + $ts + $efile
+            if ($destfile.Contains("CAPSIL") -And ($destfile.Contains("_ML_"))) {
+                Copy-Item $FILE.FullName $destfile
+            }
         }
     }
 }
@@ -107,7 +109,7 @@ $day = $today.DayOfWeek
 
 if ($day -eq "Friday") {
     Write-Host "Today is Friday. Updating header Files"  
-    $files = Get-ChildItem -Path $folder -Filter "*.csv"
+    $files = Get-ChildItem -Path $path1 -Filter "*.csv"
     # Iterate over the files in the folder
     foreach ($file in $files) {
         #Updating header in file
@@ -117,7 +119,7 @@ if ($day -eq "Friday") {
         $sw.Stop()
         Write-Host "Header updated in " $sw.Elapsed.TotalSeconds "seconds"  $file.FullName
     }
-    Write-Host "Today is Friday. Copying Monthly Files with updated name"
+    Write-Host "Today is Friday. Copying Weekly Files with updated name"
     $t1 = $today.ToString("yyyyMMdd")
     $ts = "_" + $t1 + "_" + $t1 + "_"
 
