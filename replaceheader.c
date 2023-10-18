@@ -18,7 +18,7 @@
 
 int main(int argc, char *argv[])
 {
-    printf("No of argument provided: %d\n", argc);
+    //printf("No of argument provided: %d\n", argc);
     if (argc < 3 || argc > 4)
     {
         printf("Provide all arguments");
@@ -101,6 +101,7 @@ int main(int argc, char *argv[])
     if (pos != NULL)
     {
         strncpy(pos, new, strlen(new));
+        printf("header found: updating file:%s\n", argv[1]);
     }
     else {
         printf("header not found: skipping file:%s\n", argv[1]);
