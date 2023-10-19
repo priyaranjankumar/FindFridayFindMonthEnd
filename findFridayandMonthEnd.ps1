@@ -95,7 +95,7 @@ if ($today.Day -eq $lastDayOfMonth) {
             $sfile = $file.Name.Substring(0, $ilength)
             $efile = $file.Name.Substring($file.Name.Length - $elength, $elength)
             $destfile = $path2 + $sfile + $ts + $efile
-            if ($destfile.Contains("CAPSIL") -And ($destfile.Contains("_ML_"))) {
+            if ($destfile.Contains("_QL_") -or ($destfile.Contains("_ML_"))) {
             write-host "Copied :"$destfile
                 Copy-Item $FILE.FullName $destfile
             }
