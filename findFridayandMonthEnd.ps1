@@ -49,15 +49,16 @@ if (-not (Test-Path $path2)) {
 # If a date argument was provided, Verify it is in the correct format
 if ($args[2]) {
     $dateString = $args[2].ToString()
-    $format = "yyyy-MM-dd"
+    $format = "dd-MM-yyyy"
     $date = [DateTime]::MinValue
     if ([DateTime]::TryParseExact($dateString, $format, $null, [System.Globalization.DateTimeStyles]::None, [ref]$date)) {
         # If the date is valid, use it
         Write-Host "Valid date: $($date.ToString($format))"
+        $dateString = $date.ToString("yyyy-MM-dd")
     }
     else {
         # If the date is invalid, stop the script
-        Write-Host "Error: Invalid date argument provided. Please use the format 'yyyy-MM-dd'."
+        Write-Host "Error: Invalid date argument provided. Please use the format 'dd-MM-yyyy'."
         return
     }
 }
@@ -69,6 +70,8 @@ else {
 }
 
 $today = $date
+Write-Host "Provided Date:" $today
+Write-Host "Updated Date for header:"$dateString
 $lastDayOfMonth = ((Get-Date -Day 1 -Month $today.Month -Year $today.Year).AddMonths(1).AddDays(-1)).Day
 
 if ($today.Day -eq $lastDayOfMonth) {
